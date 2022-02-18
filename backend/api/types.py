@@ -128,7 +128,7 @@ class Analytics(ObjectType):
     normalised_current_heating_cost = List(Float)
     normalised_current_hot_water_cost = List(Float)
 
-    #average ratings for house tile comparisons
+    # average ratings for house tile comparisons
     mean_low_energy_lighting = Float()
     mean_lighting_energy_eff = Float()
     mean_lighting_environmental_eff = Float()
@@ -162,6 +162,7 @@ class Recommendation(ObjectType):
     improvement_id = String()
     improvement_id_text = String()
 
-#test
+
+# test
 class Big_Query(ObjectType):
     co2_average = Float()

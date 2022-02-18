@@ -10,13 +10,7 @@ import environ
 import os
 import pandas as pd
 
-from api.types import (
-    Certificate,
-    Analytics,
-    Address,
-    Recommendation,
-    Big_Query
-)
+from api.types import Certificate, Analytics, Address, Recommendation, Big_Query
 
 from api.resolvers.analytics import create_analytics
 from api.resolvers.addresses import create_addresses
@@ -33,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 EPC_API_KEY = os.environ.get("EPC_API_KEY")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="api/.google_credentials.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "api/.google_credentials.json"
 
 headers = {
     "Accept": "application/json",
@@ -41,6 +35,7 @@ headers = {
 }
 
 payload = {}
+
 
 class Query(ObjectType):
     address = Field(List(Address), postcode=String(default_value="N/A"))
@@ -125,5 +120,6 @@ class Query(ObjectType):
         )
 
         return create_bquery(local_df)
+
 
 schema = Schema(query=Query)

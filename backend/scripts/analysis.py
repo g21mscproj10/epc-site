@@ -102,6 +102,7 @@ def convert_to_rating(dataframe, house_rating_metrics):
     for house_rating in house_rating_metrics:
         dataframe[house_rating].replace(rating_number, inplace=True)
 
+
 def verify_number(data):
     if data:
         return data

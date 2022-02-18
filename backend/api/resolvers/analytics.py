@@ -8,6 +8,7 @@ from scripts.analysis import (
     convert_to_rating,
 )
 
+
 def create_analytics(local_df):
     # Convert metrics to numbers to allow for calculations
     metrics_to_numeric(local_df, current_metrics)
@@ -71,7 +72,7 @@ def create_analytics(local_df):
         "hot-water-cost-current-per-total-floor-area"
     ]
 
-    #ratings means for housing tile comparison
+    # ratings means for housing tile comparison
     analytics.mean_low_energy_lighting = local_df["low-energy-lighting"].mean()
     analytics.mean_lighting_energy_eff = local_df["lighting-energy-eff"].mean()
     analytics.mean_lighting_environmental_eff = local_df["lighting-env-eff"].mean()
@@ -85,9 +86,15 @@ def create_analytics(local_df):
     analytics.mean_roof_environmental_eff = local_df["roof-env-eff"].mean()
     analytics.mean_main_heating_energy_eff = local_df["mainheat-energy-eff"].mean()
     analytics.mean_main_heating_environmental_eff = local_df["mainheat-env-eff"].mean()
-    analytics.mean_main_heating_controls_energy_eff = local_df["mainheatc-energy-eff"].mean()
-    analytics.mean_main_heating_controls_environmental_eff = local_df["mainheat-env-eff"].mean()
+    analytics.mean_main_heating_controls_energy_eff = local_df[
+        "mainheatc-energy-eff"
+    ].mean()
+    analytics.mean_main_heating_controls_environmental_eff = local_df[
+        "mainheat-env-eff"
+    ].mean()
     analytics.mean_second_heating_energy_eff = local_df["sheating-energy-eff"].mean()
-    analytics.mean_second_heating_environmental_eff = local_df["sheating-env-eff"].mean()
+    analytics.mean_second_heating_environmental_eff = local_df[
+        "sheating-env-eff"
+    ].mean()
 
     return analytics
