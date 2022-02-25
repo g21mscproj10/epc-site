@@ -74,7 +74,6 @@ empty_string = {
     "": NaN,
 }
 
-
 def metrics_to_numeric(dataframe, metrics):
     """
     Convert the columns with column name in metrics in the Pandas
@@ -107,6 +106,21 @@ def convert_to_rating(dataframe, house_rating_metrics):
         fixed_metric = house_rating.upper().replace("-", "_") #DELETE THIS FOR NON BIGQUERY
         dataframe[fixed_metric].replace(rating_number, inplace=True)
 
+def convert_from_SAP(sap_rating):
+    if sap_rating in range(21):
+        return 'G'
+    elif sap_rating in range(39):
+        return 'F'
+    elif sap_rating in range(55):
+        return 'E'
+    elif sap_rating in range(69):
+        return 'D'
+    elif sap_rating in range(81):
+        return 'C'
+    elif sap_rating in range(92):
+        return 'B'
+    else:
+        return 'A'
 
 def verify_number(data):
     if data:

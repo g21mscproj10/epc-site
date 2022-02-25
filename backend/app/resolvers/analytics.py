@@ -6,6 +6,7 @@ from scripts.analysis import (
     house_rating_metrics,
     generate_normalised_data,
     convert_to_rating,
+    convert_from_SAP,
 )
 
 
@@ -23,19 +24,21 @@ def create_analytics(local_df):
     analytics.mean_current_energy_efficiency = local_df[
         "current-energy-efficiency"
     ].mean()
+    analytics.mean_current_energy_rating = convert_from_SAP(analytics.mean_current_energy_efficiency)
     analytics.mean_current_environment_impact = local_df[
         "environment-impact-current"
     ].mean()
     analytics.mean_current_energy_consumption = local_df[
         "energy-consumption-current"
     ].mean()
-    analytics.mean_current_co2_emissions = local_df["co2-emissions-current"].mean()
+    analytics.mean_current_co2_consumption = local_df["co2-emissions-current"].mean()
     analytics.mean_current_lighting_cost = local_df["lighting-cost-current"].mean()
     analytics.mean_current_heating_cost = local_df["heating-cost-current"].mean()
     analytics.mean_current_hot_water_cost = local_df["hot-water-cost-current"].mean()
     analytics.mean_potential_energy_efficiency = local_df[
         "potential-energy-efficiency"
     ].mean()
+    analytics.mean_potential_energy_rating = convert_from_SAP(analytics.mean_potential_energy_efficiency)
     analytics.mean_potential_environment_impact = local_df[
         "environment-impact-potential"
     ].mean()
