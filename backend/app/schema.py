@@ -13,7 +13,7 @@ import environ
 import os
 import pandas as pd
 
-# from google.cloud import bigquery
+from google.cloud import bigquery
 
 from app.types import (
     Certificate,
@@ -46,7 +46,6 @@ headers = {
 }
 
 payload = {}
-
 
 class AddImprovement(Mutation):
     class Arguments:

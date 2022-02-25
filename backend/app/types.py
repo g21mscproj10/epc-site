@@ -8,7 +8,6 @@ from graphene import (
     DateTime,
 )
 
-
 class Certificate(ObjectType):
     low_energy_fixed_light_count = Float()
     address = String()
@@ -110,9 +109,9 @@ class Certificate(ObjectType):
 
 
 class Analytics(ObjectType):
-    # mean_energy_rating =  Char() # Returns a char, need method to get means
     number_of_houses = Int()
     mean_current_energy_efficiency = Float()
+    mean_current_energy_rating = String()
     mean_current_environment_impact = Float()
     mean_current_energy_consumption = Float()
     mean_current_co2_consumption = Float()
@@ -120,6 +119,7 @@ class Analytics(ObjectType):
     mean_current_heating_cost = Float()
     mean_current_hot_water_cost = Float()
     mean_potential_energy_efficiency = Float()
+    mean_potential_energy_rating = String()
     mean_potential_environment_impact = Float()
     mean_potential_energy_consumption = Float()
     mean_potential_co2_consumption = Float()
