@@ -39,6 +39,11 @@ const Main = () => {
   const [smallScreen, setSmallScreen] = useState(false);
   const { loading, error, data } = useQuery(GET_BQ_DATA, {});
 
+  //delete me
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
+
   function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ');
   }
