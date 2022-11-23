@@ -11,10 +11,6 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV DEBUG 1
 
-# set google credentials
-COPY add-google-credentials.sh add-google-credentials.sh
-ENTRYPOINT ["sh", "add-google-credentials.sh"]
-
 # install dependencies
 COPY ./requirements.txt .
 RUN pip install --upgrade pip
@@ -23,5 +19,9 @@ RUN pip install -r requirements.txt
 # copy project
 COPY . .
 
+#start up script 
+COPY start.sh start.sh
+
 # collect static files
 RUN python manage.py collectstatic --noinput
+ENTRYPOINT ["sh", "start.sh"]

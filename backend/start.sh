@@ -1,10 +1,12 @@
 # !/bin/sh
 
-echo "Generating google-credentials.json from Heroku environment variable"
+echo "Generating google-credentials.json from host environment variable"
 
 echo $GOOGLE_CREDENTIALS > google-credentials.json
 
 exec "$@"
+
+eval "gunicorn api.wsgi:application --bind 0.0.0.0:$PORT"
 
 
 # This script takes the value stored in the GOOGLE_CREDENTIALS environment 
