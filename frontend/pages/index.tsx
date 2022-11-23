@@ -1,13 +1,13 @@
-import { ReactElement, useEffect, useState } from "react";
-import Router from "next/router";
-import Layout from "../components/generic/layout";
-import { gql, useQuery } from "@apollo/client";
-import Circle from "../assets/circle.svg";
-import SearchBar from "../components/landing/search-bar";
-import AddressModal from "../components/landing/addressModal";
-import { useAppContext } from "../context/state";
-import _ from "lodash";
-import Footer from "../components/generic/footer";
+import { ReactElement, useEffect, useState } from 'react';
+import Router from 'next/router';
+import Layout from '../components/generic/layout';
+import { gql, useQuery } from '@apollo/client';
+import Circle from '../assets/circle.svg';
+import SearchBar from '../components/landing/search-bar';
+import AddressModal from '../components/landing/addressModal';
+import { useAppContext } from '../context/state';
+import _ from 'lodash';
+import Footer from '../components/generic/footer';
 
 const GET_ADDRESSES = gql`
   query address($queryParam: String!) {
@@ -32,17 +32,17 @@ type AddressObject = {
 };
 
 const formatPostcode = (postcode: string): string => {
-  let strippedPostcode = postcode.replace(/\s+/g, "");
-  if (strippedPostcode.length < 5 || strippedPostcode.length > 7) return "";
+  let strippedPostcode = postcode.replace(/\s+/g, '');
+  if (strippedPostcode.length < 5 || strippedPostcode.length > 7) return '';
   let arr = [...strippedPostcode];
   if (strippedPostcode.length == 5) {
-    arr.splice(2, 0, " ");
+    arr.splice(2, 0, ' ');
   } else if (strippedPostcode.length == 6) {
-    arr.splice(3, 0, " ");
+    arr.splice(3, 0, ' ');
   } else if (strippedPostcode.length == 7) {
-    arr.splice(4, 0, " ");
+    arr.splice(4, 0, ' ');
   }
-  let formatted = arr.join("");
+  let formatted = arr.join('');
   return formatted;
 };
 
@@ -51,19 +51,19 @@ const isValidPostcode = (postcode: string): boolean => {
   let formatted = formatPostcode(postcode);
   if (!formatted) return false;
   let postcodeRegex = new RegExp(
-    "^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|" +
-      "(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y]" +
-      "[0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$"
+    '^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|' +
+      '(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y]' +
+      '[0-9]?[A-Za-z])))) [0-9][A-Za-z]{2})$'
   );
   return postcodeRegex.test(formatted);
 };
 
 const Landing = () => {
-  const [searchBoxText, setSearchBoxText] = useState<string>("");
+  const [searchBoxText, setSearchBoxText] = useState<string>('');
   const [isInputError, setIsInputError] = useState<boolean>(false);
   const [isQueryError, setIsQueryError] = useState<boolean>(false);
   const [queryData, setQueryData] = useState<Array<AddressObject>>([]);
-  const [queryParam, setQueryParam] = useState<string>("");
+  const [queryParam, setQueryParam] = useState<string>('');
   const [activeAddressModal, setActiveAddressModal] = useState<boolean>(false);
   const GlobalContext = useAppContext();
 
@@ -72,15 +72,12 @@ const Landing = () => {
     variables: { queryParam },
   });
 
-  // Ping server with dummy postcode on page load
-  useQuery(PING_SERVER, { variables: { pingParam: "XXX XXX" } });
-
   const handleSearchSubmit = (): void => {
     if (!isValidPostcode(searchBoxText)) {
       setIsInputError(true);
     } else {
       let formatted = formatPostcode(searchBoxText);
-      let queryFormattedPostcode = formatted.replace(/\s+/g, "");
+      let queryFormattedPostcode = formatted.replace(/\s+/g, '');
       setQueryParam(queryFormattedPostcode);
       setIsInputError(false);
       setActiveAddressModal(true);
@@ -99,13 +96,13 @@ const Landing = () => {
     setIsInputError(false);
     setActiveAddressModal(false);
     setIsQueryError(false);
-    setQueryParam("");
-    setSearchBoxText("");
+    setQueryParam('');
+    setSearchBoxText('');
   };
 
   const handleSelection = (lmk: string): void => {
     GlobalContext.setActiveLmk(lmk);
-    Router.push("/main");
+    Router.push('/main');
   };
 
   useEffect(() => {
@@ -115,20 +112,20 @@ const Landing = () => {
   }, [error]);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.address) {
       let temp = [...data.address];
-      let unique = _.uniqBy(temp, "address");
+      let unique = _.uniqBy(temp, 'address');
       unique.sort((a: any, b: any) => (a.address < b.address ? 1 : -1));
       setQueryData(unique);
     }
   }, [data]);
 
   return (
-    <div className={"overflow-hidden h-screen w-screen"}>
+    <div className={'overflow-hidden h-screen w-screen'}>
       <div
         className={
-          "w-full h-[100vh] flex-col content-center transition-all duration-500 " +
-          (activeAddressModal ? "mt-[2vh]" : "mt-[calc(50vh-199px-7.5vh)]")
+          'w-full h-[100vh] flex-col content-center transition-all duration-500 ' +
+          (activeAddressModal ? 'mt-[2vh]' : 'mt-[calc(50vh-199px-7.5vh)]')
         }
       >
         <div className="text-gray-900 font-logoFont font-black text-[3rem] md:text-[6rem] text-center tracking-tight">
@@ -137,8 +134,8 @@ const Landing = () => {
         <div className="flex justify-center">
           {activeAddressModal ? null : (
             <SearchBar
-              searchTextValue={"Search by Postcode"}
-              width={"w-[30vw] max-w-[325px]"}
+              searchTextValue={'Search by Postcode'}
+              width={'w-[30vw] max-w-[325px]'}
               inputHandler={handleSearchInput}
               submitHandler={handleSearchSubmit}
               isError={isInputError}
@@ -163,9 +160,9 @@ const Landing = () => {
       {/* <House className="absolute z-10 left-[calc(50vw-75px)] top-[65vh] w-[150px] h-[150px]" /> */}
       <Circle
         className={
-          "fixed top left-[calc(50%-40vw)] w-[80vw] fill-lightGreen transition-all duration-500 " +
-          (activeAddressModal ? "top-[78vh] " : "top-[72vh] ") +
-          (activeAddressModal ? "md:top-[75vh]" : "md:top-[55vh]")
+          'fixed top left-[calc(50%-40vw)] w-[80vw] fill-lightGreen transition-all duration-500 ' +
+          (activeAddressModal ? 'top-[78vh] ' : 'top-[72vh] ') +
+          (activeAddressModal ? 'md:top-[75vh]' : 'md:top-[55vh]')
         }
       />
     </div>
@@ -174,7 +171,7 @@ const Landing = () => {
 
 Landing.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout title={"GreenHouse"}>
+    <Layout title={'GreenHouse'}>
       {page}
       <Footer />
     </Layout>

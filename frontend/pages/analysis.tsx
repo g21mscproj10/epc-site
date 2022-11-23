@@ -1,7 +1,7 @@
-import type { ReactElement } from "react";
-import { useState, useEffect } from "react";
-import Layout from "../components/generic/layout";
-import DashboardWrapper from "../components/sidebarNew";
+import type { ReactElement } from 'react';
+import { useState, useEffect } from 'react';
+import Layout from '../components/generic/layout';
+import DashboardWrapper from '../components/sidebarNew';
 import {
   CartesianGrid,
   BarChart,
@@ -13,19 +13,19 @@ import {
   LineChart,
   Line,
   ResponsiveContainer,
-} from "recharts";
-import { GET_BQ_DATA } from "./api/queries";
-import { useQuery } from "@apollo/client";
-import { BQBarData, BQTimeSeriesData } from "../types";
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import Lottie from "react-lottie-player";
-import loadingJson from "../assets/animations/animation/loading.json";
-import errorJson from "../assets/animations/animation/error.json";
-import Modal from "../components/generic/modal";
-import HelpModal from "../components/dashboard/helpModal";
-import { IoIosArrowDropdown } from "react-icons/io";
-import { AiFillQuestionCircle } from "react-icons/ai";
+} from 'recharts';
+import { GET_BQ_DATA } from './api/queries';
+import { useQuery } from '@apollo/client';
+import { BQBarData, BQTimeSeriesData } from '../types';
+import { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import Lottie from 'react-lottie-player';
+import loadingJson from '../assets/animations/animation/loading.json';
+import errorJson from '../assets/animations/animation/error.json';
+import Modal from '../components/generic/modal';
+import HelpModal from '../components/dashboard/helpModal';
+import { IoIosArrowDropdown } from 'react-icons/io';
+import { AiFillQuestionCircle } from 'react-icons/ai';
 
 const Main = () => {
   const [barData, setBarData] = useState<BQBarData[]>();
@@ -33,14 +33,14 @@ const Main = () => {
   const [selectedTimeSeries, setSelectedTimeSeries] =
     useState<{ year: string; Stars: number }[]>();
   const [activeCategory, setActiveCategory] = useState<string>(
-    "Lighting Energy Efficiency"
+    'Lighting Energy Efficiency'
   );
-  const [modalContent, setModalContent] = useState<string>("");
+  const [modalContent, setModalContent] = useState<string>('');
   const [smallScreen, setSmallScreen] = useState(false);
   const { loading, error, data } = useQuery(GET_BQ_DATA, {});
 
   function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(' ');
   }
 
   function formatTimeseries(data: number[]) {
@@ -53,36 +53,36 @@ const Main = () => {
   }
 
   const categories = [
-    { value: "LightingEnergyEff", name: "Lighting Energy Efficiency" },
+    { value: 'LightingEnergyEff', name: 'Lighting Energy Efficiency' },
     {
-      value: "LightingEnvironmentalEff",
-      name: "Lighting Environmental Efficiency",
+      value: 'LightingEnvironmentalEff',
+      name: 'Lighting Environmental Efficiency',
     },
-    { value: "WallsEnergyEff", name: "Walls Energy Efficiency" },
-    { value: "WallsEnvironmentalEff", name: "Walls Environmental Efficiency" },
-    { value: "WaterEnergyEff", name: "Water Energy Efficiency" },
-    { value: "WaterEnvironmentalEff", name: "Water Environmental Efficiency" },
-    { value: "FloorEnergyEff", name: "Floor Energy Efficiency" },
-    { value: "FloorEnvironmentalEff", name: "Floor Environmental Efficiency" },
-    { value: "RoofEnergyEff", name: "Roof Energy Efficiency" },
-    { value: "RoofEnvironmentalEff", name: "Roof Environmental Efficiency" },
-    { value: "MainHeatingEnergyEff", name: "Main Heating Energy Efficiency" },
+    { value: 'WallsEnergyEff', name: 'Walls Energy Efficiency' },
+    { value: 'WallsEnvironmentalEff', name: 'Walls Environmental Efficiency' },
+    { value: 'WaterEnergyEff', name: 'Water Energy Efficiency' },
+    { value: 'WaterEnvironmentalEff', name: 'Water Environmental Efficiency' },
+    { value: 'FloorEnergyEff', name: 'Floor Energy Efficiency' },
+    { value: 'FloorEnvironmentalEff', name: 'Floor Environmental Efficiency' },
+    { value: 'RoofEnergyEff', name: 'Roof Energy Efficiency' },
+    { value: 'RoofEnvironmentalEff', name: 'Roof Environmental Efficiency' },
+    { value: 'MainHeatingEnergyEff', name: 'Main Heating Energy Efficiency' },
     {
-      value: "MainHeatingEnvironmentalEff",
-      name: "Main Heating Environmental Efficiency",
-    },
-    {
-      value: "MainHeatingControlsEnergyEff",
-      name: "Main Heating Controls Energy Efficiency",
+      value: 'MainHeatingEnvironmentalEff',
+      name: 'Main Heating Environmental Efficiency',
     },
     {
-      value: "MainHeatingControlsEnvironmentalEff",
-      name: "Main Heating Controls Environmental Efficiency",
+      value: 'MainHeatingControlsEnergyEff',
+      name: 'Main Heating Controls Energy Efficiency',
     },
-    { value: "WindowsEnergyEff", name: "Windows Energy Efficiency" },
     {
-      value: "WindowsEnvironmentalEff",
-      name: "Windows Environmental Efficiency",
+      value: 'MainHeatingControlsEnvironmentalEff',
+      name: 'Main Heating Controls Environmental Efficiency',
+    },
+    { value: 'WindowsEnergyEff', name: 'Windows Energy Efficiency' },
+    {
+      value: 'WindowsEnvironmentalEff',
+      name: 'Windows Environmental Efficiency',
     },
   ];
 
@@ -91,70 +91,70 @@ const Main = () => {
       setBarData(
         [
           {
-            name: "Lighting Energy Efficiency",
+            name: 'Lighting Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeLightingEnergyEff,
           },
           {
-            name: "Lighting Environmental Efficiency",
+            name: 'Lighting Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeLightingEnvironmentalEff,
           },
           {
-            name: "Walls Energy Efficiency",
+            name: 'Walls Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeWallsEnergyEff,
           },
           {
-            name: "Walls Environmental Efficiency",
+            name: 'Walls Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeWallsEnvironmentalEff,
           },
           {
-            name: "Water Energy Efficiency",
+            name: 'Water Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeWaterEnergyEff,
           },
           {
-            name: "Water Environmental Efficiency",
+            name: 'Water Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeWaterEnvironmentalEff,
           },
           {
-            name: "Floor Energy Efficiency",
+            name: 'Floor Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeFloorEnergyEff,
           },
           {
-            name: "Floor Environmental Efficiency",
+            name: 'Floor Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeFloorEnvironmentalEff,
           },
           {
-            name: "Roof Energy Efficiency",
+            name: 'Roof Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeRoofEnergyEff,
           },
           {
-            name: "Roof Environmental Efficiency",
+            name: 'Roof Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeRoofEnvironmentalEff,
           },
           {
-            name: "Heating Energy Efficiency",
+            name: 'Heating Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeMainHeatingEnergyEff,
           },
           {
-            name: "Heating Environmental Efficiency",
+            name: 'Heating Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeMainHeatingEnvironmentalEff,
           },
           {
-            name: "Heating Controls Energy Efficiency",
+            name: 'Heating Controls Energy Efficiency',
             value:
               data.bigQuery.averageAnnualChangeMainHeatingControlsEnergyEff,
           },
           {
-            name: "Heating Controls Environmental Efficiency",
+            name: 'Heating Controls Environmental Efficiency',
             value:
               data.bigQuery
                 .averageAnnualChangeMainHeatingControlsEnvironmentalEff,
           },
           {
-            name: "Windows Energy Efficiency",
+            name: 'Windows Energy Efficiency',
             value: data.bigQuery.averageAnnualChangeWindowsEnergyEff,
           },
           {
-            name: "Windows Environmental Efficiency",
+            name: 'Windows Environmental Efficiency',
             value: data.bigQuery.averageAnnualChangeWindowsEnvironmentalEff,
           },
         ].sort((a, b) => (a.value < b.value ? 1 : -1))
@@ -194,7 +194,7 @@ const Main = () => {
   }, [data]);
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 460px)").matches) {
+    if (window.matchMedia('(max-width: 460px)').matches) {
       setSmallScreen(true);
     }
   }, []);
@@ -202,9 +202,9 @@ const Main = () => {
   return (
     <DashboardWrapper
       pageTitle="Analysis"
-      subTitle={"Cambridge"}
+      subTitle={'Cambridge'}
       analysis
-      setModalContent={""}
+      setModalContent={''}
       currentPage="Analysis"
     >
       {data ? (
@@ -217,7 +217,7 @@ const Main = () => {
                   <AiFillQuestionCircle
                     size={16}
                     className="hover:cursor-pointer"
-                    onClick={() => setModalContent("BQimprovements")}
+                    onClick={() => setModalContent('BQimprovements')}
                   />
                 </div>
                 <div className="p-4 py-2 font-light text-sm text-left">
@@ -230,12 +230,12 @@ const Main = () => {
                 ) : null}
               </div>
               {barData && (
-                <ResponsiveContainer width={"100%"} height={520}>
+                <ResponsiveContainer width={'100%'} height={520}>
                   <BarChart
                     style={
                       smallScreen
-                        ? { position: "relative" }
-                        : { position: "relative", left: "-100px" }
+                        ? { position: 'relative' }
+                        : { position: 'relative', left: '-100px' }
                     }
                     layout="vertical"
                     width={560}
@@ -274,7 +274,7 @@ const Main = () => {
                       <AiFillQuestionCircle
                         size={16}
                         className="hover:cursor-pointer"
-                        onClick={() => setModalContent("BQtimeseries")}
+                        onClick={() => setModalContent('BQtimeseries')}
                       />
                     </div>
                     <div className="p-4 py-2 font-light text-sm">
@@ -282,7 +282,7 @@ const Main = () => {
                       2008
                     </div>
                   </div>
-                  <ResponsiveContainer width={"100%"} height={350}>
+                  <ResponsiveContainer width={'100%'} height={350}>
                     <LineChart
                       width={640}
                       height={350}
@@ -343,9 +343,9 @@ const Main = () => {
                                       }}
                                       className={classNames(
                                         active
-                                          ? "bg-gray-100 text-gray-900"
-                                          : "text-gray-700",
-                                        "block px-4 py-2 text-sm"
+                                          ? 'bg-gray-100 text-gray-900'
+                                          : 'text-gray-700',
+                                        'block px-4 py-2 text-sm'
                                       )}
                                     >
                                       {category.name}
@@ -364,8 +364,8 @@ const Main = () => {
             </div>
           </div>
 
-          {modalContent !== "" ? (
-            <Modal hideModal={() => setModalContent("")}>
+          {modalContent !== '' ? (
+            <Modal hideModal={() => setModalContent('')}>
               <HelpModal type={modalContent} />
             </Modal>
           ) : null}

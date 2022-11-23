@@ -4,23 +4,6 @@ on:
     branches:
       - main
 jobs:
-  prettier:
-    name: Run Prettier formatter
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-      - name: Prettify code
-        uses: creyD/prettier_action@v4.2
-        with:
-          # This part is also where you can pass other options, for example:
-          prettier_options: --write **/*.{js,tsx}
   testing:
     name: Integration testing of the GraphQL API
     runs-on: ubuntu-latest
@@ -32,7 +15,7 @@ jobs:
       - name: Set up Python 3.10
         uses: actions/setup-python@v2
         with:
-          python-version: "3.10"
+          python-version: '3.10'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -69,7 +52,7 @@ jobs:
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-args: "--prod" #Optional
+          vercel-args: '--prod' #Optional
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
   flake8-lint:
@@ -84,43 +67,8 @@ jobs:
       - name: Set up Python environment
         uses: actions/setup-python@v1
         with:
-          python-version: "3.10"
+          python-version: '3.10'
       - name: flake8 Lint
         uses: py-actions/flake8@v2
         with:
-          max-line-length: "120"
-
-  black-formatting:
-    name: Black Formatting Test
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - name: Check out source repository
-        uses: actions/checkout@v2
-      - name: black formatter
-        uses: rickstaa/action-black@v1
-        id: action_black
-        with:
-          black_args: "."
-  build-docker:
-    name: Build Docker Image
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    steps:
-      - name: Check out source repository
-        uses: actions/checkout@v2
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "epc-site-backend"
-          heroku_email: ${{secrets.HEROKU_EMAIL}}
-          appdir: "backend"
-          stack: "container"
-          # healthcheck: "https://epc-site-backend.herokuapp.com/ping"
-          # delay: 20
-          # rollbackonhealthcheckfailed: true
+          max-line-length: '120'
